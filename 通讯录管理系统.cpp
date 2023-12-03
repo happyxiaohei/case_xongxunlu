@@ -162,8 +162,10 @@ void addperson(addressbooks* abs)
 		//初始化通讯录中当前人员个数
 
 		abs.m_size = 0;
-
-		int select = 0;  //设置一个变量,用来接收用户的输入信息
+		
+		//设置一个变量,用来接收用户的输入信息
+		
+		int select = 0; 
 
 
 
