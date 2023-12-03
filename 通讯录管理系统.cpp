@@ -76,6 +76,7 @@ void addperson(addressbooks* abs)
 
 			}
 			cout << "输入有误,请重新输入" << endl;
+			
 		}
 
 
@@ -125,8 +126,87 @@ void addperson(addressbooks* abs)
 }
 
 
+//2.显示所有联系人
+
+void showperson(addressbooks* abs)
+{
+
+	//判断通讯录中人数是否为0  如果是0,提示记录为空
+	//如果不为0,显示记录的联系人信息
+
+	if (abs->m_size == 0)
+	{
+		cout << "当前记录为空" << endl;
+	}
+	else
+	{
+		for (int i = 0; i < abs->m_size; i++)
+
+		{
+			cout << "姓名:  " << abs->personarray[i].m_name << "\t";
+			cout << "性别:  " << (abs->personarray[i].m_sex  == 1 ?"男":"女" )<< "\t";
+			cout << "年龄:  " << abs->personarray[i].m_age << "\t";
+			cout << "电话:  " << abs->personarray[i].m_phone << "\t";
+			cout << "住址:  " << abs->personarray[i].m_addr << endl;
 
 
+		}
+
+	}
+	system("pause");  //按任意键结束
+	system("cls");  //清屏
+
+}	
+
+//判断是否存在查询的人员    存在返回在数组中索引位置  不存在返回-1
+
+int isExist(addressbooks* abs, string name)
+{
+
+	for (int i = 0; i < abs->m_size; i++)
+	{
+		//找到用户输入的姓名了
+
+		if (abs->personarray[i].m_name == name)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+
+//3.删除联系人
+
+void deleteperson(addressbooks* abs)
+{
+	cout << "请输入你要删除的联系人" << endl;
+	string name;
+	cin >> name;
+	
+	int ret =  isExist (abs, name);
+	if (ret != -1)
+	{
+		//查找到人,要进行删除操作
+		for (int i = ret; i < abs->m_size; i++)
+		{
+
+			abs->personarray[i] = abs->personarray[i+1];
+		}
+		abs->m_size--;  //更新通讯录中的人员
+		cout << "删除成功" << endl;
+
+	}
+	else
+	{
+		cout << "查无此人" << endl;
+
+	}
+
+	system("pause");
+	system("cls");
+
+}
 
 //菜单界面    //第一步
 	void showMenu()
@@ -185,8 +265,30 @@ void addperson(addressbooks* abs)
 				
 				break;
 			case 2:   //2.显示联系人
+
+				showperson(&abs);
 				break;
 			case 3:  //3.删除联系人
+
+				deleteperson(&abs);
+
+				//下方代码只为检测用
+
+		/*	{
+				cout << "请输入删除联系人姓名:  " << endl;
+				string name;
+				cin >> name;
+
+				if (isExist(&abs, name) == -1)
+				{
+					cout << "查无此人" << endl;
+
+				}
+				else
+				{
+					cout << "找到此人" << endl;
+				}
+			}*/
 				break;
 			case 4:  //4.查找联系人
 				break;
